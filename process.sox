@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# input
+
+ARG=$1
+
+if   [[ -d "${ARG}" ]]; then 
+    echo "${ARG} is a directory"
+    # TODO: validate that all files in the dir are of a given extension
+    FILES=(${ARG}/*)
+elif [[ -f "${ARG}" ]]; then 
+    echo "${ARG} is a file"
+    FILES=($ARG)
+elif [[ -ne "${ARG}" ]]; then 
+    echo "$ARG is not a valid audio file"
+else 
+    echo "Input argument has to be a valid audio file or a directory containing only audio files"
+    exit 1
+fi
+
+
+OUT_DIR="bounces"
+mkdir $OUT_DIR
+TIME=$(date +%s)
+
+
+for FILE in ${FILES[@]}; do
+    EXT="${FILE##*.}"
+    BASENAME=$(basename "${FILE}" ."${EXT}")
+    OUTPUT="$OUT_DIR/${BASENAME}_${TIME}.${EXT}"
+
+    # sox $FILE $OUTPUT \
+    #     reverse \
+    #     flanger 2 \
+    #     speed 0.5 \
+    #     reverb \
+    #     stretch 2 \
+    #     reverse \
+    #     reverb norm -0.1 \
+    #     speed 4 \
+    #     lowpass 2000
+    
+
+    sox $FILE $OUTPUT \
+        speed 0.9 \
+        lowpass 2000 \
+        overdrive 1.2
+
+    echo "${OUTPUT} 🌻"
+    # play $OUTPUT
+done

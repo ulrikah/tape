@@ -1,0 +1,8 @@
+# assets
+*.wav
+*.mp3
+*.aiff
+*.flac
+
+# misc
+.DS_Store
