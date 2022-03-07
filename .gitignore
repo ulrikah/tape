@@ -4,8 +4,9 @@
 *.aiff
 *.flac
 
-# misc
-.DS_Store
-
 # python
 venv
+
+# misc
+.DS_Store
+.vscode
