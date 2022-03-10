@@ -1,12 +1,12 @@
 # assets
-*.wav
-*.mp3
-*.aiff
-*.flac
+**/*.wav
+**/*.mp3
+**/*.aiff
+**/*.flac
 
 # python
 venv
 
 # misc
-.DS_Store
+**/*.DS_Store
 .vscode

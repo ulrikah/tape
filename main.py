@@ -1,21 +1,39 @@
 import sox
-
-INPUT_WAV = "hey.wav"
-OUTPUT_WAV = "out.wav"
+from datetime import datetime
 
 
-def main():
+def output_filename() -> str:
+    timestamp = int(datetime.now().timestamp())
+    return f"bounces/output_{timestamp}.wav"
+
+
+def play(filepath: str):
+    return sox.core.play([filepath])
+
+
+def process(input_filepath: str, output_filepath: str):
     tfm = sox.Transformer()
     tfm.compand()
     tfm.reverse()
     tfm.flanger(2)
     tfm.speed(0.5)
     tfm.reverb()
-    tfm.build_file(INPUT_WAV, OUTPUT_WAV)
+    return tfm.build_file(
+        input_filepath=input_filepath, output_filepath=output_filepath
+    )
 
-    # get the output in-memory as a numpy array
-    # by default the sample rate will be the same as the input file
-    # array_out = tfm.build_array(input_filepath=INPUT_WAV)
+
+def transformer_to_file(tfm: sox.Transformer, output_filepath: str):
+    tfm.build_file()
+
+
+def main():
+    input_filepath = "rec_1646943950.wav"
+    output_filepath = output_filename()
+    if process(input_filepath, output_filepath):
+        play(output_filepath)
+    else:
+        print("Something went wrong building the transform to file")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SECS=1
+DATE="$(date +%s)"
+FILE="bounces/rec_$DATE.wav"
+
+echo "Recording for $SECS seconds"
+rec $FILE trim 0:0 0:$SECS
+echo "Saved file as $FILE"
