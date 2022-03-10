@@ -45,10 +45,6 @@ def process(input_filepath: str, output_filepath: str) -> bool:
     )
 
 
-def transformer_to_file(tfm: sox.Transformer, output_filepath: str):
-    tfm.build_file()
-
-
 def main():
     input_filepath = "bounces/rec_1646943950.wav"
     output_filepaths = []
