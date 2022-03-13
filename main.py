@@ -1,20 +1,25 @@
-import sox
 from datetime import datetime
 from random import random, randint, uniform
+
+import sox
+import numpy as np
+
+SAMPLE_RATE = 44100
+INT16 = np.int16
 
 random_bool = lambda: bool(randint(0, 2))
 
 
-def output_filename() -> str:
+def sox_transformer():
+    tfm = sox.Transformer()
+    tfm.set_globals(verbosity=1)
+    return tfm
+
+def timestamped_filename() -> str:
     timestamp = str(datetime.now().timestamp()).replace(".", "")
     return f"bounces/output_{timestamp}.wav"
 
-
-def play(filepaths):
-    return sox.core.play(filepaths)
-
-
-def process(input_filepath: str, output_filepath: str) -> bool:
+def process(input_filepath: str) -> np.ndarray:
     """
     Applies various effects from the sox library and
     returns an audio file.
@@ -22,7 +27,7 @@ def process(input_filepath: str, output_filepath: str) -> bool:
     All sox features: http://sox.sourceforge.net/Docs/Features
     """
 
-    tfm = sox.Transformer()
+    tfm = sox_transformer()
     tfm.compand()
     if random_bool():
         tfm.reverse()
@@ -40,20 +45,30 @@ def process(input_filepath: str, output_filepath: str) -> bool:
     tfm.pitch(n_semitones=randint(-3, 3))
     tfm.reverb(reverberance=randint(20, 90), wet_only=random_bool())
 
-    return tfm.build_file(
-        input_filepath=input_filepath, output_filepath=output_filepath
+    return tfm.build_array(
+        input_filepath=input_filepath
     )
+   
+def sum_tracks(tracks: np.ndarray) -> np.ndarray:
+    return np.sum(tracks, axis=0, dtype=INT16)
 
+def tracks_to_file(tracks: np.ndarray, filename : str) -> bool:
+    tfm = sox_transformer()
+    return tfm.build(output_filepath = filename, input_array=tracks, sample_rate_in=SAMPLE_RATE)
+
+def add_list_of_tracks(tracks):
+    min_length = min(len(l) for l in tracks)
+    return np.asarray([t[:min_length] for t in tracks], dtype=INT16)[:,:min_length]
 
 def main():
     input_filepath = "bounces/rec_1646943950.wav"
-    output_filepaths = []
-    for i in range(10):
-        output_filepath = output_filename()
-        if process(input_filepath, output_filepath):
-            output_filepaths.append(output_filepath)
-    play(output_filepaths)
-
+    n_iters = 10
+    output_arrays = add_list_of_tracks([process(input_filepath) for i in range(n_iters)])
+    output_filename = timestamped_filename()
+    if tracks_to_file(sum_tracks(output_arrays), output_filename):
+        sox.core.play([output_filename])
+    else:
+        print("Something went wrong rendering")
 
 if __name__ == "__main__":
     main()
