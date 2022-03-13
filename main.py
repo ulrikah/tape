@@ -50,7 +50,7 @@ def process(input_filepath: str) -> np.ndarray:
     )
    
 def sum_tracks(tracks: np.ndarray) -> np.ndarray:
-    return np.sum(tracks, axis=0, dtype=INT16)
+    return np.sum(pad_tracks(tracks), axis=0, dtype=INT16)
 
 def tracks_to_file(tracks: np.ndarray, filename : str) -> bool:
     tfm = sox_transformer()
@@ -59,6 +59,17 @@ def tracks_to_file(tracks: np.ndarray, filename : str) -> bool:
 def add_list_of_tracks(tracks):
     min_length = min(len(l) for l in tracks)
     return np.asarray([t[:min_length] for t in tracks], dtype=INT16)[:,:min_length]
+
+def pad_tracks(M):
+    """Appends the minimal required amount of zeroes at the end of each 
+     array in the jagged array `M`, such that `M` looses its jagedness."""
+
+    maxlen = max(len(r) for r in M)
+    n_audio_channels = 2
+    Z = np.zeros((len(M), maxlen, n_audio_channels))
+    for enu, row in enumerate(M):
+        Z[enu, :len(row)] += row 
+    return Z
 
 def main():
     input_filepath = "bounces/rec_1646943950.wav"
