@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.tidal": "haskell"
+    },
+    "editor.tabSize": 3
+}

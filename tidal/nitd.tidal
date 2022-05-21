@@ -1,0 +1,26 @@
+d1 
+   $ chunk 4 (|- note 5)
+   $ jux rev
+   $ arp "<pinkyup down thumbup up>"
+   $ n "c'maj'4 e'min"
+   # sound "supergong"
+   # legato 2
+   # room 0.3 # sz 0.9
+   # pan "0 0.5 1"
+
+d2 $ jux rev
+   $ n (
+      off 0.125 (|-12) 
+      $ off 0.25 (|+12)
+      "c'maj'4*2 e'min(3,8)"
+      -- <d*2 d(8,3) e(3,8,2) d*16>"
+   )
+   # sound "superfork" # accelerate "<0.05 -0.1 0.2>"
+   # legato 4
+
+d3 $ n "<c'maj'4 c'maj'4*13 c'maj'4>"
+   # s "bass"
+   # octave 1
+   # gain 0.8
+
+hush
