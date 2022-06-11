@@ -1,7 +1,41 @@
-setcps (140/60/4)
+setcps (150/60/4)
 
-d1 $ n "<0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 24 25>"
-   # s "tabla"
+d1 
+   $ slow "[1 2]"
+   $ jux (iter 2)
+   $ stut 2 0.2 0.2
+   $ n "5 5 ~ [5 5] 5 ~ 5 5"
+   # s "sd"
+   # gain 0.7
+   # cutoff 5000
+   # resonance 0.4
+   # distort 0.05
+   # speed (range 0.85 1.15 sine)
 
+d2
+   $ every 6 (jux rev)
+   $ stut 3 0.5 0.2
+   $ fast 4
+   $ n "0 ~ 0 0"
+   # s "coins"
+   # pan sine
+   # gain 0.9
+   # legato 0.1
+   # speed (range 0.1 0.4 tri)
+   # hpf 300
+   # hresonance (range 0.1 0.3 saw)
+   # lpf 4500
+   # resonance 0.2
+
+d3
+   $ every 8 (stut 3 0.2 0.5)
+   $ fast 2
+   $ n "21 <21!7 ~> [~ 21] 21"
+   # s "bd"
+   # hpf 50
+   # lpf "3500!3 1500"
+   # resonance (range 0.2 0.5 (slow 4 $ sine))
+   # gain 0.9
+   # speed (range 1.1 1.05 sine)
 
 hush
