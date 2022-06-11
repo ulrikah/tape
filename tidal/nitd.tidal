@@ -1,26 +1,155 @@
+hush
+
+d1 $ every 4 (jux rev)
+   $ every 6 (
+      fast 2
+   )
+   $ chop 32
+   $ n "0*2 1"
+   # s "tabla"
+   # room 0.1 # size 0.6
+
 d1 
-   $ chunk 4 (|- note 5)
+   -- $ stutter 4 (1/16)
+   $ jux rev
+   $ fast 5
+   $ splice 16 "14*4 15 <16*4 16*2> 13 12 11 10 9 8 7 6 5 4 3 2 1"
+   $ n "<1 2 3 4>" 
+   # s "outdoor"
+
+d2
+   $ chunk 4 (|+ note 5)
    $ jux rev
    $ arp "<pinkyup down thumbup up>"
    $ n "c'maj'4 e'min"
-   # sound "supergong"
+   # sound "superfork"
    # legato 2
-   # room 0.3 # sz 0.9
+   # room 0.3 # size 0.9
    # pan "0 0.5 1"
+   # octave 2
+
+d3 $ n (
+      off 0.125 (|+5) 
+      $ off 0.25 (|+7)
+      "c'maj'4*3 e'min(2,7)" 
+   )
+   # sound "superfork"
+   # octave 4
+   # legato 2
+   # accelerate "<0.05 -0.1 0.2>"
+   # gain 0.6
+
+d3 $ s "<bd*4 bd*4 bd*4 [bd _ bd bd*3 sn]>"
+   # djf 0.2
+   # room 0.5 # size 0.3
 
 d2 $ jux rev
+   $ slow 2
    $ n (
       off 0.125 (|-12) 
-      $ off 0.25 (|+12)
-      "c'maj'4*2 e'min(3,8)"
+      "<c'maj'4(3,16) e'min(3,8)>"
       -- <d*2 d(8,3) e(3,8,2) d*16>"
    )
-   # sound "superfork" # accelerate "<0.05 -0.1 0.2>"
+   # sound "supercomparator"
+   --  # accelerate "<0.05 -0.1 0.2>"
    # legato 4
+   # octave 5
+   # gain 0.45
 
 d3 $ n "<c'maj'4 c'maj'4*13 c'maj'4>"
    # s "bass"
    # octave 1
    # gain 0.8
+
+d1 $ superimpose ((# speed "2*12") . (# squiz (slow 2 $ range 1 16 $ sine)) . (striate "[4|2|3]") . (ply "[[1 1 2 4]|[1 1 2 2]]") . (# room "0 0.5") . (# sz "0.2 0.4"))
+   $ fast 2
+   $ s "bd hh bd hh" # amp 0.4
+
+d1 $ every 4 rev 
+   $ sound "bd hh*5"
+
+-- :t rev
+
+:t lpf
+
+:t every
+
+:t sound
+
+hush
+
+:t rev
+
+:t sound
+
+"d(3,8)" :: Pattern String
+
+:t speed
+
+hush
+
+-- LIMT INN I PRESENTASJONEN #1
+-- d1 
+--    $ chunk 4 (|+ note 5)
+--    $ jux rev
+--    $ arp "<pinkyup down thumbup up>"
+--    $ n "c'maj'4 e'min"
+--    # sound "superfork"
+--    # legato 2
+--    # room 0.3 # size 0.9
+--    # pan "0 0.5 1"
+--    # octave 2
+
+-- d2 $ n (
+--       off 0.125 (|+5) 
+--       $ off 0.25 (|+7)
+--       "c'maj'4*3 e'min(2,7)" 
+--    )
+--    # sound "superfork"
+--    # octave 4
+--    # legato 2
+--    # accelerate "<0.05 -0.1 0.2>"
+--    # gain 0.5
+
+
+-- TODO: få til et lydeksempel fra dette, gjerne ved å spille d1 først og så d2
+-- LIMT INN I PRESENTASJONEN #2
+
+d1 $ every 4 (jux rev)
+   $ every 6 (fast 2)
+   $ chop 32
+   $ n "0*2 1"
+   # s "tabla"
+   # room 0.1 # size 0.6
+
+d2
+   $ chunk 4 (|+ note 5)
+   $ jux rev
+   $ arp "<pinkyup down thumbup up>"
+   $ n "c'maj'4 e'min"
+   # sound "superfork"
+   # legato 2
+   # room 0.3 # size 0.9
+   # pan "0 0.5 1"
+   # octave 2
+
+d3 $ n (
+      off 0.125 (|+5) 
+      $ off 0.25 (|+7)
+      "c'maj'4*3 e'min(2,7)" 
+   )
+   # sound "superfork"
+   # octave 4
+   # legato 2
+   # accelerate "<0.05 -0.1 0.2>"
+   # gain 0.6
+
+every :: Pattern Int -> (Pattern a -> Pattern a) -> Pattern a -> Pattern a
+
+rev :: Pattern a -> Pattern a
+
+sound :: Pattern String -> ControlPattern
+
+:t sound
 
 hush
