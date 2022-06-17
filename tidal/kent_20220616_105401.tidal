@@ -1,0 +1,42 @@
+setcps (140/60/4)
+
+d1 $ every 4 (slow 2) $ chop "<8 16 4>" $ n "0 1 2" # s "feel" 
+    # gain 0.8
+    # pan sine
+    # room 0.8 # size 0.9
+    # octave 3
+
+
+d1  $ every 4 (jux rev)
+    $ every 2 (stut 2 0.5 0.2)
+    $ slow "[4 2]"
+    $ n "5 5 ~ 5 5 ~ ~ 5" # s "bd"
+    # cutoff 2500
+    # resonance "<0.1!2 0.4 0.5>"
+    # gain 1.1
+    # distort "<0.1!5 0.3>"
+    
+
+d4  $ chop 32
+    $ n "0!16"
+    # s "coins"
+    # gain 0.9
+    # speed (range 0.8 1.2 sine)
+    # pan (sine + 0.5)
+
+
+d1  $ n (
+        off 0.125 (|+ 5)
+        $ off "<0.15 0.175 2.0 2.2>" (|+ 7)
+        $ off 1.0 (|+36)
+        $ off 2.5 (|+48)
+        "c5 ~ c5 e4"
+    )
+    # s "arpy" 
+    # gain 0.9
+    # octave 5
+    # rel 0.7
+    # hpf 6000
+    # hresonance 0.6
+    # room 0.9
+    # size 0.5
