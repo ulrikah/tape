@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DURATION=0.1
+THRESHOLD=6
+
+sox staysie.wav bounces/staysie_.wav silence 1 $DURATION $THRESHOLD% 1 $DURATION $THRESHOLD% : newfile : restart
