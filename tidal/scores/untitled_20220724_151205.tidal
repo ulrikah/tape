@@ -3,9 +3,10 @@ setcps (140/60/4)
 
 d2 
    $ off 0.25 (# vowel "<a o i>")
-   $ chop 8
+   $ chop 16
    $ n "8 8 ~ [8 8] 8 ~ 8 8"
    # s "staysie"
+   # gain 0.9
 
 d1 
     $ every 4 (# speed "1.2")
@@ -18,14 +19,22 @@ d1
     # lpf "3500!3 1500"
     # resonance (range 0.2 0.5 (slow 4 $ sine))
     # orbit 1
-    # gain 0.9
+    # gain 0.7
 
-mute 2
+d3
+    $ fast "1.2" 
+    $ chop 32
+    $ n "1" 
+    # s "dumdum"
+    # speed (range 0.7 1.0 (slow 4 $ sine))
+    # lpf 2200
+
+hush
 
 d1 
     $ every 4 (# speed "1.2")
     $ juxBy 0.1 rev
-    $ fast "<0.5 0.3 0.1>"
+    $ fast "<0.2 0.3 0.1>"
     $ chop 16
     $ n "4 22 18"
     # s "staysie"
