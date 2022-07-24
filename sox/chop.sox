@@ -1,6 +1,18 @@
 #!/bin/bash
 
+
+INPUT_FILE=$1
+
+
+if [[ -f "${1}" ]]; then
+    INPUT_FILE=$1
+else
+    echo "Input file is not valid"
+    exit 1
+fi
+
+
 DURATION=0.1
 THRESHOLD=1
 
-sox staysie_2ch.mp3 bounces/staysie_.wav silence 1 $DURATION $THRESHOLD% 1 $DURATION $THRESHOLD% : newfile : restart
+sox $INPUT_FILE bounces/output_.wav silence 1 $DURATION $THRESHOLD% 1 $DURATION $THRESHOLD% : newfile : restart
