@@ -1,0 +1,20 @@
+setcps (110/60/4)
+
+d1 
+   $ every 8 (jux ((# gain 0.6) . rev))
+   $ fast 2
+   $ juxBy 0.8 (# speed (range 0.99 1.01 $ saw))
+   $ stack [
+      s (samples "ades2*8" (run "8")) 
+         # hpf 80
+         # delay "0.3!5 0.1"
+         # delaytime (range 0.1 0.3 $ sine)
+         # delayfeedback 0.2
+         # lpf 5000,
+      fast 2 $ s "bd" # gain 0.9 # lpf 1000,
+      slow 4 $ s "[hh hh [hh ~]]" # gain 0.7 # hpf 100
+   ]
+   |+| unit "c"
+   |+| speed "8"
+
+hush

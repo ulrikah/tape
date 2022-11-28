@@ -1,0 +1,81 @@
+setcps (140/60/4)
+
+-- testing the striate function. based off of https://www.youtube.com/watch?v=B4W97Ps-MUQ
+
+
+d1 
+   $ jux (rev)
+   $ slow 4
+   $ striate 512
+   $ s "numbers:0"
+
+
+d1 
+   $ slow 8
+   $ striateBy 2048 (1/224)
+   $ s "numbers:0"
+
+d1 
+   $ slow 4
+   $ striateBy 500 (1/200)
+   $ s "numbers:0*16"
+
+
+d1 
+   $ jux (|+| speed "1.1")
+   $ ( -- applying the jux to every grain
+      slow 4
+      $ striateBy 4000 (1/100)
+      $ s "numbers:0"
+   )
+   |+| speed (1/4.0)
+   |+| delay "0.3"
+   |+| delayfeedback "0.6"
+   |+| delaytime "0.3"
+
+
+d1 
+   $ jux (|+| speed "1.1")
+   $ ( -- applying the jux to every grain
+      slow 4
+      $ striateBy 4000 (1/100)
+      $ s "numbers:0"
+   )
+   |+| speed (1/4.0)
+   |+| delay "0.3"
+   |+| delayfeedback "0.6"
+   |+| delaytime "0.3"
+
+d1 $ slow 4
+   $ striateBy 4000 (1/100)
+   $ s "numbers:0"
+   |+| speed (1/4.0)
+   |+| delay "0.3"
+   |+| delayfeedback "0.6"
+   |+| delaytime "0.3"
+   # lpf 2000
+
+d2 
+   $ slow "[1 2]"
+   $ jux (iter 2)
+   $ stut 2 0.2 0.2
+   $ n "5 5 ~ [5 5] 5 ~ 5 5"
+   # s "sd"
+   # gain 0.7
+   # cutoff 5000
+   # resonance 0.4
+   # distort 0.05
+   # speed (range 0.85 1.15 sine)
+
+d3
+   $ every 8 (stut 3 0.2 0.5)
+   $ fast 2
+   $ n "21 <21!7 ~> [~ 21] 21"
+   # s "bd"
+   # hpf 50
+   # lpf "3500!3 1500"
+   # resonance (range 0.2 0.5 (slow 4 $ sine))
+   # gain 0.9
+   # speed (range 1.1 1.05 sine)
+
+hush

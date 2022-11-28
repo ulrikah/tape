@@ -1,0 +1,38 @@
+setcps (140/60/4)
+
+d1 
+   $ slow 2
+   $ juxBy (range 0.5 1.0 $ sine) (# speed (range 0.5 1.5 $ sine))
+   $ s "<bd!5 [~ bd]> ~ sd . hh hh [hh ~] . sd ~"
+   # delay 0.5
+   # delaytime 0.6
+   # delayfeedback 0.3
+   # squiz 0.9
+
+d1 $ s "[bd sd/2, hh hh hh]"
+
+d1 $ s "[bd | sd | hh]"
+
+d1 $ s "bd _ _ ~ sd _"
+
+d1 $ s "bd ~ ~ ~ sd ~"
+
+d1 $ s "bd? sd"
+
+d1 $ s "numbers:3 4"
+
+d1 $ s "[bd(3,8), sd(5,8)]"
+
+d1 $ s "{bd!4, cp!2 hh!5}"
+
+d1 $ s "[bd(3,8), cp(2,8), hh(7,8), bass:1(7,16)]"
+
+d1 $ s "[bd(5,8), cp(4,8), hh(7,8), bass:2(7,16)]"
+
+d1 $ s "[bd(5,8), cp(1,8)?, hh(7,8), bass:2(8,16)]"
+
+d1 $ s "[bd(5,8), cp(1,8)?, hh(7,8), [bass:2 ~]!8]"
+
+:t jux
+
+hush
