@@ -1,0 +1,33 @@
+setcps (160/60/4)
+
+-- echo
+
+d1 $ echo 4 (-0.2) 0.5 $ s "bassdrums:5"
+
+
+d1 $ rev $ echo 8 0.5 0.5 $ s "bd(3,8)"
+
+d1 $ echo 4 0.5 "<0.1!3 0.9>" $ s "bd(3,8)"
+
+d1 $ s "bassdrums:5"
+
+d1 $ echo 4 0.2 0.5 $ sound "bd sn"
+
+-- echoWith
+
+d1 $ echoWith 4 0.2 (# vowel "{a e i o u}%2") $ sound "bd sn"
+
+d1 $ echoWith 8 0.1 (|* speed "0.6 0.7 0.8 1.2") $ sound "bd sn"
+
+d1 $ echoWith 4 (1/6) (|* speed "0.7") $ sound "arpy arpy:2"
+
+d1 
+   $ juxBy 0.8 (every 8 (rev))
+   $ echoWith 3 (0.125/2) 
+   (|*| speed (every 2 (0.25 <~ ) $ "0.5 0.8 1.0 1.2"))
+   . (|*| gain "1.1")
+   $ s "bassdrums:4(3,8)"
+      -- . (|*| gain "1.1")
+   -- $ s "bassdrums:2(3,8)"
+
+hush

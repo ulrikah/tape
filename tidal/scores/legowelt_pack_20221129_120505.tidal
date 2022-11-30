@@ -1,0 +1,19 @@
+setcps (140/60/4)
+
+
+d1 
+   $ every 8 (rev)
+   $ juxBy 0.6 (# speed (range 0.5 1.5 $ sine))
+   $ stack [
+      s (samples "snares" (run (
+         -- (off 0.125 (|+4))
+          4 
+      ))) # gain 0.6 # hpf 500,
+      s "bassdrums*8" # lpf 5000 # gain 0.999 
+         # hpf (slow 2 $ range 25 125 sine)
+   ]
+
+
+d1 $ s "hihats:5"
+
+hush

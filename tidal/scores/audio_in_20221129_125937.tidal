@@ -1,0 +1,11 @@
+d1 
+   $ slow 2
+   $ striate 32
+   $ s "in"
+   # cut 1
+   # speed 5
+
+-- ?? not obvious how the typical functions
+-- apply to the live audio input
+
+hush
