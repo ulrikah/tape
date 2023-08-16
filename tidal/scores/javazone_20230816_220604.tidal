@@ -1,0 +1,17 @@
+let bpm = 200
+
+setcps (bpm/60/4)
+
+
+d1
+  $ n (
+      off 0.125 (|+5)
+      "c'maj'4*3 e'min(2,7)"
+  )
+  # sound "bd sn"
+  # delay 0.1
+  # delaytime 0.1
+  # delayfeedback 0.6
+
+
+hush
