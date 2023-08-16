@@ -1,11 +1,11 @@
-setcps (110/60/4)
+setcps (80/60/4)
 
-d1 
+d1
    $ every 8 (jux ((# gain 0.6) . rev))
    $ fast 2
    $ juxBy 0.8 (# speed (range 0.99 1.01 $ saw))
    $ stack [
-      s (samples "ades2*8" (run "8")) 
+      s (samples "ades2*8" (run "8"))
          # hpf 80
          # delay "0.3!5 0.1"
          # delaytime (range 0.1 0.3 $ sine)

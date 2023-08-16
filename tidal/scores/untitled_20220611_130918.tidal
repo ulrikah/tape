@@ -1,6 +1,6 @@
 setcps (150/60/4)
 
-d1 
+d1
    $ slow "[1 2]"
    $ jux (iter 2)
    $ stut 2 0.2 0.2
