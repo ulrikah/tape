@@ -1,17 +1,38 @@
-let bpm = 200
+let bpm = 80
 
 setcps (bpm/60/4)
 
 
 d1
-  $ n (
+   $ n (
       off 0.125 (|+5)
       "c'maj'4*3 e'min(2,7)"
-  )
-  # sound "bd sn"
-  # delay 0.1
-  # delaytime 0.1
-  # delayfeedback 0.6
+   )
+   # sound "bd sn"
+   # delay 0.1
+   # delaytime 0.1
+   # delayfeedback 0.6
 
+
+
+
+d1 $ n (
+      off 0.125 (|+1)
+      "1 [~ ~ 2 ~] [3 3]"
+   )
+   # s "bass3"
+   # speed 0.9
+   # hpf 200
+   # hresonance (slow 4 $ range 0.1 0.4 sine)
+
+d2 $ slow 2
+   $ n (
+      "3(9,32)"
+   )
+   # octave "5!3 6"
+   # s "bass3"
+   # gain 0.
+
+d2 $ echoWith 8 0.1 (|* speed "0.6 0.7 0.8 1.2") $ s "bass3"
 
 hush

@@ -1,0 +1,50 @@
+setcps (80/60/4) -- cps aka cycles per second - 80 BPM tilsvarer ~0.33 sykler per sekund
+
+-- 
+
+d1 $ s "bd hh hh"
+
+d2 $ every 4 (jux rev) $ s "hh:2 ~ hh:3 cp"
+
+d3 $ s "cp cp cp cp" # gain 0.6 # speed 1.4 # lpf 1200 # lpq (range 0.1 0.4 sine)
+
+"1 2 3"
+
+-- for things that should be a pattern but only executed _once_
+d2 
+   $ s "bd sd sd"
+   # speed 0.4
+   # delay 0.2
+   # delaytime 0.4
+   # delayfeedback 0.3
+   # gain 0.9
+
+d1 $ n (
+      off (0.125/8) (|+1)
+      "1 [~ ~ 2 ~] [3 3]"
+   )
+   # octave 4
+   # s "bass3"
+   # speed 1.2
+   # hpf 200
+   # hresonance (slow 4 $ range 0.1 0.4 sine)
+
+d3 $ fast 2 $ n "1 2 3 4 5 6 7 8 9" 
+   # s "birds3"
+   # hpf 5000
+   # pan (slow 4 $ sine)
+   # delay 0.1
+   # delaytime 0.2
+   # delayfeedback 0.5
+   # speed 0.8
+
+d1 
+   $ jux (rev)
+   $ slow 4
+   $ striate 128
+   $ s "diphone2"
+   |+| speed (1/2.0)
+   # hpf 1500
+   # hresonance 0.4
+
+hush
