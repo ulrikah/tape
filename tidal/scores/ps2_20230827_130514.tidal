@@ -1,0 +1,16 @@
+setcps (100/60/4)
+
+
+d1 $ stack [
+      n "0" # s "ps2"
+      # cut 1
+      # gain 0.8,
+      n "[10 <11*2!4 11*3> 12 13*2 <14 [14,11]>]*1.5"
+      # cut (irand 4) -- randomimzing which of the above samples that will cut the base ps2 sample
+      # s "ps2",
+      juxBy 0.6 (|* speed "2") $ loopAt 4 $ chop 32 $ s "ps2:7" # speed 0.6 # octave 7 # hpf 200 # gain 0.7
+   ]
+
+once $ juxBy 0.6 (|* speed "2") $ loopAt 4 $ chop 32 $ s "ps2:7" # speed 0.6 # octave 7 # hpf 200
+
+hush
