@@ -1,0 +1,23 @@
+setcps (130/60/4)
+
+d2 $ n "<2*12!2 2*16 2*24>"
+   # cut "1"
+   # s "peri"
+   # dry 0.5 # room 0.2 # size 0.3
+   # gain (range 0.7 0.8 $ slow 4 sine)
+   # nudge (range 1 2 $ slow 8 $ sine)
+   # lpf 3000 # lpq (slow 4 $ range 0.2 0.4 $ square)
+   # hpf 300
+
+
+-- kult med whenmod her som viser hvor fleksibelt systemet er
+d1 
+   $ whenmod 5 3 (striate 3)
+   $ stack [
+      n "0!7 1" # s "peri",
+      n "3!8" # s "peri" # gain 0.8,
+      echo 32 0.02 0.9 $ n "6/8" # s "peri" # gain 0.8 # speed 0.3
+   ]
+   # speed "[[1 0.8], [1.5 2]*2]/3" -- vrikker på hastigheten til de ulike samplene
+
+hush
