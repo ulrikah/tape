@@ -146,4 +146,68 @@ d1 $ slow (range 1 4 $ slow 8 $ sine)
       $ s "<[peri!4]!7 peri(3,8)>" # lpf 1500 # gain 1.2 # lpq 0.4 # room 0.6 # size 0.6
    ]
 
+let effectRack = (
+         (# speed (range 0.6 0.8 $ slow 8 $ sine))
+         . (# crush (slow 2 $ range 0.5 1 $ sine))
+      )
+
+
+someCoolEffects = (speed (range 0.6 0.8 $ slow 8 $ sine))
+
+d1 $ s "bd*4" # someCoolEffects
+
+d2 $ superimpose (fast 2) . 
+   $ s "sd(3,8)" # gain 0.8 # speed 1.2
+
+:t someCoolEffects
+
+:t off
+
+-- copied from https://tidalcycles.org/blog/tidal_profile_ndr_brt/#livecoding
+
+let sh t f p = superimpose ((hurry t).f) p
+
+d1
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "peri"
+
+d1
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "wind" # cut "-1"
+
+d1
+  $ chew 4 (iter 3 "3 1 0")
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "wind"
+
+-- or
+
+d1
+  $ bite 4 (iter 5 "3 0 1")
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "sine"
+
+-- https://tidalcycles.org/blog/tidal_profile_LINALAB
+
+d1 $ s "[peri(<9 5 4>,16),peri:4(7, 16, 14)]" 
+
+d1 $ fast 2 $ arp "up" $ n "e'min'6" # s "superchip" # octave 2
+
+d1 $ s "bd*4"
+
+d2 $ fast 2 $ arp "up" $ n "e'min'<6 8>" # s "superchip" # octave 2
+
+d3 $ s "superchip(<7 5 1>,12)" # n (scale "minor" "<0 2> .. <12 7 3>"|+ 4)
+
 hush
