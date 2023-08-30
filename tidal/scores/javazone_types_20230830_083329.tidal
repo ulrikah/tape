@@ -1,0 +1,36 @@
+:t every
+
+:t d1
+
+:t note
+
+:t fast
+
+:t sound
+
+:t (#)
+
+:t ($)
+
+:t stack
+
+:t n "1 2 3"
+
+sound "drum" |+| n "1 2 3"
+
+n "2 3" |+| n "4 5 6"
+
+sound "drum" |+| n "1 2 3"
+
+:t ((# speed "2*12") . (# squiz (slow 2 $ range 1 16 $ sine)) . (striate
+  "[4|2|3]") . (ply "[[1 1 2 4]|[1 1 2 2]]") . (# room "0 0.5") . (# sz "0.2 0.4"))
+  
+s "bd" (# speed "2*12" . (# squiz (slow 2 $ range 1 16 $ sine)))
+
+superimpose ((# speed "2*12") . (# squiz (slow 2 $ range 1 16 $ sine)) . (striate
+  "[4|2|3]") . (ply "[[1 1 2 4]|[1 1 2 2]]") . (# room "0 0.5") . (# sz "0.2 0.4"))
+  $ fast 2
+  $ s "bd hh bd hh" # amp 0.4
+
+
+hush
