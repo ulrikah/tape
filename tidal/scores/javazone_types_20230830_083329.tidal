@@ -32,5 +32,8 @@ superimpose ((# speed "2*12") . (# squiz (slow 2 $ range 1 16 $ sine)) . (stria
   $ fast 2
   $ s "bd hh bd hh" # amp 0.4
 
+"1 2 3" :: Pattern String
+
+:t (d1 $ s "bd")
 
 hush

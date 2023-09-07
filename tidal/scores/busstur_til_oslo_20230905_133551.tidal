@@ -1,0 +1,53 @@
+setcps (120/60/4)
+
+let sh time function pattern = superimpose ((hurry time) . function) pattern
+
+
+-- jeg lagde første d1, og så kom d2 etterpå som et helt annet pattern. 
+-- jeg ville egentlig bare teste hvordan jeg kunne få en perkussiv lyd til å bli som en tone
+-- noe å utforske videre hadde vært variere hvilken sample det er som blir spilt, men la grunnstrukturen være ganske statisk
+
+
+d1 $ every 4 (rev)
+   $ sh (-2) (every 4 (juxBy 0.2 (rev) . (# gain 0.7)))
+   $ sh "3 6 7" id . (# gain 0.7)
+   $ slow 4 $ chop "<32 8 22 17>"
+   $ s "peri:1" 
+   # speed "0.6" 
+   # release 1.0 
+   # hold 2.0 
+   # legato 1.2 
+   # gain 1.0 # hpf (range 200 400 $ slow 2 $ sine) # hpq (range 0.2 0.3 $ slow 4 $ sine)
+   # lpf 5500
+
+d2 $ "<0*80 0*60 0*40 0*45>" # s "peri bd"
+   # gain 0.4 # pan (range 0.3 0.4 sine) 
+   # room 0.3 # hpf 300 # hpq "0.2 0.3 0.4"
+   # cut "-1" # lpf 5500 # lpq (range 0.0 0.8 $ slow 4 $ sine)
+   # speed (range 0.95 1.05 $ slow 4 $ sine)
+   # djf (slow 4 $ sine)
+
+-- en variasjon
+
+d2 $ sh (-1.33) rev . (|*| gain 0.8)
+   $ sh (-2.2) id . (|*| gain 0.9)
+   $ "<0*80 0*60 0*40 0*45>" # s "peri bd"
+   # gain 0.4 # pan (range 0.3 0.4 sine) 
+   # room 0.3 # hpf 300 # hpq "0.2 0.3 0.4"
+   # cut "-1" # lpf 5500 # lpq (range 0.0 0.8 $ slow 4 $ sine)
+   # speed (range 0.95 1.05 $ slow 4 $ sine)
+   # djf (slow 4 $ sine)
+
+d1 
+   $ every 3 (sh (-2) $ echo 6 0.1 0.7 . (# gain 0.9))
+   $ sh (-2) id
+   $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed 0.8
+   # djf (range 0.3 0.6 $ slow 4 $ sine)
+
+:t superimpose
+
+hush

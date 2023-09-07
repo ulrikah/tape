@@ -165,13 +165,21 @@ d2 $ superimpose (fast 2) .
 
 -- copied from https://tidalcycles.org/blog/tidal_profile_ndr_brt/#livecoding
 
-let sh t f p = superimpose ((hurry t).f) p
+let sh t f p = superimpose ((hurry t) . f) p
 
 d1
   $ sh 5 id
   $ sh "e" id
   $ sh 3 id
-  $ s "peri"
+  $ slow 4 
+  $ n "0 <2 ~> ~ 0(2,9)" 
+  # s "peri"
+--   # someCoolEffects
+
+hush
+
+d1 
+   $ s "peri"
 
 d1
   $ chunk 7 (|* speed 1.5)
@@ -209,5 +217,123 @@ d1 $ s "bd*4"
 d2 $ fast 2 $ arp "up" $ n "e'min'<6 8>" # s "superchip" # octave 2
 
 d3 $ s "superchip(<7 5 1>,12)" # n (scale "minor" "<0 2> .. <12 7 3>"|+ 4)
+
+d1 $ stack [
+      s "bd*3",
+      s "hh!3 <hh [~ ~ <~ hh [hh*3 ~ hh]>]>"
+   ]
+
+d1 $ stack [
+      s "bd*3",
+      s "hh*4"
+   ]
+
+d1 $ s "bd"
+
+d1 $ superimpose (
+      (# squiz (slow 2 $ range 0.5 1 $ sine)) . 
+      (# speed 1.2) 
+      . (# gain 1.5) 
+      . (fast "1 2") 
+      . (juxBy 0.4 rev)
+   ) 
+   $ stack [
+      s "bd*3",
+      s "hh!3 <hh [~ ~ <~ hh [hh*3 ~ hh]>]>"
+   ]
+
+:t sound
+
+-- superhurry 
+let sh time function pattern = superimpose ((hurry time) . function) pattern
+
+someCoolEffects = ((speed (range 0.6 0.8 $ slow 8 $ sine)) . (# gain 0.8))
+
+d1 $ sh 5 id
+   $ sh "e" id
+   $ sh 3 id
+   $ s "peri"
+   # someCoolEffects
+
+hush
+
+d1 $ every 4 (rev)
+   $ sh (-2) (every 4 (juxBy 0.2 (rev) . (# gain 0.7)))
+   $ sh "3 6 7" id . (# gain 0.7)
+   $ slow 4 $ chop "<32 8 22 17>"
+   $ s "peri:1" 
+   # speed "0.6" 
+   # release 1.0 
+   # hold 2.0 
+   # legato 1.2 
+   # gain 0.8 # hpf (range 200 400 $ slow 2 $ sine) # hresonance (range 0.2 0.3 $ slow 4 $ sine)
+   # lpf 5500
+
+hush
+
+d1 $ sh 5 id
+   $ sh (-2.03) id
+   $ sh (-1.02) id
+   $ n "<0 [~ ~ 2*3]>" # s "peri"
+   # cut "-1"
+
+once  
+   $ sh (-2.03) id 
+   $ sh (-1.02) id 
+   $ s "peri:2"
+
+d1 $ rarely (juxBy 0.2 (hurry 2)) $ loopAt 4 $ chop 42 $ s "breaks125"
+
+d1 $ juxBy 0.6 (|* speed "2") $ loopAt "<4 6 2 3>" $ chop 12 $ sound "fm:14"
+
+myNiceSound = sound "fm:14" # speed 0.8 # lpf 4000 # hpf 400
+
+once $ myNiceSound
+
+-- superhurry 
+let sh time function pattern = superimpose ((hurry time) . function) pattern
+
+boom = sound "peri" # hpf 100 # hresonance 0.2 # lpf 2500 # lpq 0.1
+
+d1 $ boom
+
+d1 $ (hurry 1 . rev)
+   $ sound "[peri*2 ~] ~ <peri ~>" # hpf 100 # hresonance 0.2 # lpf 1500
+
+d1 $ sh 1 (ghostWith (6/5) (|*| speed 1.2) . (|*| gain 0.7))
+   $ sound "[peri*2 ~] ~ <peri ~>" # hpf 100 # hresonance 0.1 # lpf 2000 # gain 0.8 # room (perlin / 4)
+
+d1 $ n "0 ~ [0 <0 ~>]" # sound "peri" # hpf 100 # hresonance 0.2 # lpf 2500 # lpq 0.1
+   # delay 0.6 # delaytime 200 # delayfeedback "<0.1!7 0.6>" # cut "1"
+
+d1 $ sh "2" rev
+   $ sh "2.3" (pressBy (perlin / 4))
+   -- $ fx
+   $ s "peri"
+
+
+let fx p = p # room (range 0.1 0.3 $ slow 8 $ sine) # lpf 1400 # lpq 0.3
+
+d1 
+   $ superimpose (
+        (# speed (range 0.8 1.2 $ sine))
+      . (# delay 0.2)
+      . (# delayfeedback "0.4 0.2 0.1 0.7")
+      . (# delaytime (1/2))
+   )
+   $ fx
+   $ s "bd"
+
+px = (# speed (range 0.8 1.2 $ sine))
+      . (# delay 0.4)
+      . (# delayfeedback 0.4)
+      . (# delaytime 10)
+
+
+d1 $ stack [
+      superimpose (px) $ s "bd!4" # gain 0.7
+      , pressBy (perlin / 8) $ s "<~ peri:2> peri*4" # gain 0.8 # octave 6
+      , sometimes $ s "peri:1"
+   ]
 
 hush

@@ -1,0 +1,96 @@
+setcps (120/60/4)
+
+
+
+-- FIRST
+
+d1 $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ]
+
+hush
+
+-- SECOND
+
+d1 $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ]
+   # speed "<0.8 0.9>"
+
+-- THIRD
+
+d1 $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed "<0.8 0.9>"
+   # djf (range 0.4 0.8 $ slow 4 $ sine)
+
+hush
+
+
+
+
+-- FOURTH
+
+let javazone time f p = superimpose ((hurry time) . f) p
+
+d1 $ javazone (-2) id
+   $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed "<0.8 0.9>"
+   # djf (range 0.4 0.8 $ slow 4 $ sine)
+
+
+-- FIFTH
+
+let javazone time f p = superimpose ((hurry time) . f) p
+
+d1 $ every 3 (javazone (-2) $ echo 6 0.1 0.7 . (# gain 0.9))
+   $ javazone (-2) id
+   $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed "<0.8 0.9>"
+   # djf (range 0.4 0.8 $ slow 4 $ sine)
+
+--- SIXTH
+
+let javazone time f p = superimpose ((hurry time) . f) p
+
+d1 $ fast 1.4
+   $ every 3 (javazone (-2) $ echo 6 0.1 0.7 . (# gain 0.9))
+   $ javazone (-2) id
+   $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed "<0.8 0.9>"
+   # djf (range 0.4 0.8 $ slow 4 $ sine)
+
+hush
+
+--- EVERYTHING
+
+let javazone time f p = superimpose ((hurry time) . f) p
+
+d1 $ fast 1.2
+   $ every 3 (javazone (-2) $ echo 6 0.1 0.7 . (# gain 0.9))
+   $ javazone (-2) id
+   $ stack [
+      s "bd*3", 
+      s "hh*4"
+   ] 
+   # speed "<0.8 0.9>"
+   # djf (range 0.4 0.8 $ slow 4 $ sine)
+
+---
+
+:t superimpose
+
+hush
