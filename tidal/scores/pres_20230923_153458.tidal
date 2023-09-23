@@ -1,4 +1,4 @@
-setcps (110/60/4)
+setcps (140/60/4)
 
 d1 $ chop 32 $ s "presloops:5" # cut 1
 
@@ -8,10 +8,12 @@ d1 $ slow 2
 
 
 -- works well in combination with own breath work under meg_20230923_143551.tidal
+setcps (140/60/4)
+
 d1 
    $ echo 32 (range (-0.03) 0.06 $ slow 4 sine) 0.7
    $ slow 8 
-   $ chop 128 $ n "<8 19 21 2>" # s "presloops" -- interesting to add variations to the sample
+   $ chop 128 $ n "[<8 19 21 2>, {19 21 2 8}%3]/4" # s "presloops" -- interesting to add variations to the sample
    # pan 0.5
    # distort 0.3
    # shape 0.5
@@ -22,6 +24,30 @@ d1
    # gain 0.8
    # hpf (range 50 400 $ slow 4 sine)
 
+d5 $ every 4 (juxBy 0.5 (rev)) 
+   $ n "<2*4!3 [2!2 ~ [1 ~]]>" # s "808bd" # lpf 3000 # lpq 0.5 # gain 0.9 # hpf 50 
+
 once $ s "presloops:8"
+
+-- SOMETHING NEW BELOW
+
+-- inspiration from @digitalselves: https://www.youtube.com/watch?v=cKGtIpMq06A
+-- d1 $ stack [
+--       sometimes (fast 2) $ gain "{1 ~ [~ 1] ~}%8" # s "presperc" # n (choose [1,4,7,16]) # gain 0.7,
+--       fast 4 $ gain "{0.8 ~ 0.9 [~ 0.9]}%6" # s "presperc" # n (choose [34,39,26,21,20])
+--    ]
+
+setcps (80/60/4)
+
+d1 $ almostNever (echo 8 0.05 0.7)
+   $ slow 2 $ chop "8" $ n "22 23 25" # s "presperc" # hpf (range 200 700 $ slow 4 saw) # hpq 0.7 # room 0.05
+
+d2 $ stack [
+      superimpose (almostNever (fast 2) . chop "<16 12 8>" . (# speed 1.2) . (# gain 0.8))
+      $ s "<presperc:34 presperc:35>" # lpf 5000 # lpq 0.5 # room 0.05
+      -- n "[39!8]/4" # s "presperc" # gain 0.7
+   ]
+
+d3 $ gain "0.6 0.2 ~ [0.5 ~] ~" # n (choose [26,28,29]) # s "presperc" # hpf 400 # room 0.1
 
 hush
