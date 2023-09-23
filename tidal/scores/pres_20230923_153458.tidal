@@ -1,0 +1,27 @@
+setcps (110/60/4)
+
+d1 $ chop 32 $ s "presloops:5" # cut 1
+
+d1 $ slow 2 
+   -- $ every 4 (juxBy 0.8 rev)
+   $ chop 32 $ s "presloops:8" # cut 1
+
+
+-- works well in combination with own breath work under meg_20230923_143551.tidal
+d1 
+   $ echo 32 (range (-0.03) 0.06 $ slow 4 sine) 0.7
+   $ slow 8 
+   $ chop 128 $ n "<8 19 21 2>" # s "presloops" -- interesting to add variations to the sample
+   # pan 0.5
+   # distort 0.3
+   # shape 0.5
+   # room 0.2
+   # size 0.2
+   # phaserdepth 1.0
+   # phaserrate 1.2
+   # gain 0.8
+   # hpf (range 50 400 $ slow 4 sine)
+
+once $ s "presloops:8"
+
+hush

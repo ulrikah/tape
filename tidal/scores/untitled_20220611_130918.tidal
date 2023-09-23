@@ -1,4 +1,4 @@
-setcps (150/60/4)
+setcps (150/60/4) -- also cool in like 80 BPM
 
 d1
    $ slow "[1 2]"
