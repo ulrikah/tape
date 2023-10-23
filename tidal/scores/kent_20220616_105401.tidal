@@ -1,4 +1,4 @@
-setcps (140/60/4)
+setcps (80/60/4)
 
 d1 $ every 4 (slow 2) $ chop "<8 16 4>" $ n "0 1 2" # s "feel" 
     # gain 0.8
