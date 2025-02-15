@@ -1,0 +1,38 @@
+setcps (120/60/4)
+
+-- dette er fett i seg selv
+d1 
+   $ slow 2
+   $ rarely (superimpose (fast 1.5) . (|* gain 0.8) . (# pan (rand)))
+   $ echo 4 0.5 0.2 
+   $ chop "128 [256 320 500]"
+   $ s "wiki"
+   # cut 1
+   # speed (range 0.8 1.1 $ slow 4 sine)
+   # hpf (range 200 1000 $ slow 16 sine)
+   # room 1.0
+   # gain 0.8
+
+d2 
+   $ n "<2 4 1 6 16> ~" 
+   # s "808bd" 
+   # room 0.4
+   -- # gain 0.85
+   -- # hpf (range 200 1000 $ slow 16 sine)
+
+d3 
+   $ rarely (superimpose (# legato (irand 5 + 1)) . (# stretch "2 4 6"))
+   $ fast 2
+   $ fast (irand 7 + 1)
+   $ n "1 ~ 1 ~ ~"
+   # s "hardcore"
+   # speed 0.9
+   # room 0.2
+   # squiz (perlin + 1)
+   # gain 1.2
+   # legato (rand / 6)
+   # lpf 8000
+
+solo 3
+
+hush
