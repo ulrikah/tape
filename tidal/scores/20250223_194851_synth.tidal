@@ -1,0 +1,53 @@
+setcps (120/60/4)
+
+d1 $ n (slow 2 $ fmap(*12) $ run 8)
+    # s "supergrind"
+    # decay "[1 0.2]/4"
+    # voice "[0.5 0]/8"
+
+d1  $ every 4 (
+        superimpose (
+            stutter 4 (1/16)
+            . (|* gain 0.8) 
+            . (# pan (sine))
+            . (# speed 0.9)
+            . echo 4 0.12 0.9
+            . (|* n "2")
+        )
+    )
+    $ n (fast 1 $ fmap(*3) $ run "<8!3 7 3 32>") 
+    # s "cyclo"
+    -- # legato (rand)
+    # accelerate (sine)
+
+
+d1  
+    $ every 6 (echo "<3 2>" "<0.02!2 0.03>" 0.3)
+    $ every 8 (# crush 2)
+    $ every 2 (echo 2 "<0.2 0.1>" 0.8)
+    $ layer [
+        -- every 3 (echo "<4 2>" "<0.02!2 0.03>" 0.3),
+        -- every 4 (fast 1.4) . fast 1.2
+        fast 1.2
+    ]
+    $ n (fast 2 $ fmap(*2) $ run "4" * "<4 5>") 
+    # s "psin"
+    # hpf 80
+    # hresonance 0.8
+    # crush 3
+
+d1  $ echo 4 0.2 0.7
+    $ n (fast 6 $ fmap (*2) $ run "6")
+    # s "supersaw"
+    # voice (slow 4 $ sine)
+    # decay (perlin + 1.5)
+    # accelerate 0.8
+    # resonance 0.8
+    # lfo "<0.5!2 0.8>"
+    # rate "<3 6 1 16>"
+    # pitch1 (slow 3 $ tri * 4)
+    # hpf (rand * 10 + 200)
+    # hresonance (rand / 10 + 0.6)
+    # legato 1.2
+
+hush
