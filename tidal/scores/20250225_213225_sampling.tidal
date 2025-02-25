@@ -1,0 +1,16 @@
+setcps (140/60/4)
+
+d1 $ slow 2 $ s "breaks152" # legato 1 # timescale (152/130) # cps (130/60/4)
+
+d1  $ slow 2
+    $ s "breaks152"
+    # legato 2
+    # accelerate 0.2
+    # timescale (152*8/140) 
+    # timescalewin (rand + 3)
+    # cut "1"
+    # hpf 100
+    # lpf 6000
+    # room 0.5
+
+hush
