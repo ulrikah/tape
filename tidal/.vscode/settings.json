@@ -6,5 +6,7 @@
     "tidalcycles.sounds.paths": [
         "/Users/ulrikah/Music/tape/tidal/samples/",
         "/Users/ulrikah/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples"
-    ]
+    ],
+    "tidalcycles.bootTidalPath": "../BootTidal.hs",
+    "tidalcycles.useBootFileInCurrentDirectory": true
 }

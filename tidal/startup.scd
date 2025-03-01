@@ -16,14 +16,16 @@ s.reboot { // server options are only updated on reboot
 	// boot the server and start SuperDirt
 	s.waitForBoot {
 		~dirt = SuperDirt(2, s); // two output channels, increase if you want to pan across more channels
-		
+		// load mi-ugens.scd synthdefs
+
+		load("/Users/ulrikah/Music/tape/tidal/mi-ugens/mi-ugens.scd");
+		// end load mi-ugens.scd synthdefs
+
 		~dirt.loadSoundFiles;   // load samples (path containing a wildcard can be passed in)
+
+		// for example: ~dirt.loadSoundFiles("/Users/myUserName/Dirt/samples/*");
 		~dirt.loadSoundFiles("~/Music/tape/tidal/samples/*");
 		~dirt.loadSoundFiles("~/Music/samples/*");
-
-		// load mi-ugens.scd synthdefs
-		load("~/Library/Application Support/SuperCollider/synthdefs/mi-ugens.scd");
-
 		// s.sync; // optionally: wait for samples to be read
 		~dirt.start(57120, 0 ! 12);   // start listening on port 57120, create two busses each sending audio to channel 0
 
@@ -34,16 +36,18 @@ s.reboot { // server options are only updated on reboot
 			~d7 = ~dirt.orbits[6]; ~d8 = ~dirt.orbits[7]; ~d9 = ~dirt.orbits[8];
 			~d10 = ~dirt.orbits[9]; ~d11 = ~dirt.orbits[10]; ~d12 = ~dirt.orbits[11];
 
+
 			// define global effects for mutable instruments effects
 			~dirt.orbits.do { |x|
-					var clouds = GlobalDirtEffect(\global_mi_clouds, [\cloudspitch, \cloudspos, \cloudssize, \cloudsdens, \cloudstex, \cloudswet, \cloudsgain, \cloudsspread, \cloudsrvb, \cloudsfb, \cloudsfreeze, \cloudsmode, \cloudslofi]);
-					var verb = GlobalDirtEffect(\global_mi_verb, [\verbwet, \verbtime, \verbdamp, \verbhp, \verbfreeze, \verbdiff, \verbgain]);
-					x.globalEffects = x.globalEffects
-					.addFirst(clouds)
-					.addFirst(verb); 
-					x.initNodeTree;    
-			};                     
+				var clouds = GlobalDirtEffect(\global_mi_clouds, [\cloudspitch, \cloudspos, \cloudssize, \cloudsdens, \cloudstex, \cloudswet, \cloudsgain, \cloudsspread, \cloudsrvb, \cloudsfb, \cloudsfreeze, \cloudsmode, \cloudslofi]);
+				var verb = GlobalDirtEffect(\global_mi_verb, [\verbwet, \verbtime, \verbdamp, \verbhp, \verbfreeze, \verbdiff, \verbgain]);
+				x.globalEffects = x.globalEffects
+				.addFirst(clouds)
+				.addFirst(verb);
+				x.initNodeTree;
+			};
 			// end define global effects for mutable instruments effects
+
 		);
 	};
 
