@@ -1,0 +1,47 @@
+setcps (140/60/4)
+
+d1 
+   $ fast 5
+   $ every 8 (superimpose (fast 8 . (# speed 0.9) . (|* gain 0.9)))
+   $ every 4 ((# lpq 0.8))
+   $ every 4 (
+      superimpose (fast 1.5) . (|* gain 0.8) . (# pan (rand))
+   )
+   -- $ n (
+   $ n (
+      off 0.25 (+12) 
+      $ off 0.125 (+7) 
+      $ off 0.9 (+ (-2))
+      $ slow 1 "c(3,8) a(3,8,2) f(3,8) e(3,8,4)")
+      -- off 0.1 (+ 12)
+      -- $ "0 [~ 1] [0 0] [3 4] ~ <3 4>" 
+   -- )
+   # s "plaits" 
+   # engine 10
+   # harm (fast 5 $ sine)
+   # timbre 0.5 -- (fast 1 $ sine)
+   # morph (sine)
+   # octave "7 6 [5 8]"
+   # clouds 0.1 0.1 0.05 0.1
+   # cloudsblend 0.1 0.2 0.03 0.8
+   # lpf (sine * 5000 - 1000)
+   # lpq (slow 4 $ (sine / 4 + 0.25))
+
+
+d1 
+   $ off 0.01 ( 
+      id . (# gain (0.9)) . (# pan (sine / 4 + 0.35)) . (|+ octave (1))
+      . (|+ timbre 0.05)
+   )
+   $ slow 4
+   $ n "[a e] [f <h ~ e>] [~ d]"
+   # s "plaits"
+   # engine 6
+   # timbre 0
+   # morph (tri / 20 + 0.9) -- slow 2 $ (sine / 4 + 0.5)
+   # octave "5 5 <5 3>"
+   # attack 0.05
+   -- # attack "<0.1 0.02 0.05>"
+   # release 1.2
+
+hush

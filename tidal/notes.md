@@ -12,6 +12,8 @@ https://tidalcycles.org/docs/reference/mi-ugens-installation/
 
 https://club.tidalcycles.org/t/mi-ugens-install-issues-on-windows/4745/18
 
+https://tidalcycles.org/docs/reference/mi-ugens-plaits
+
 **locating BootTidal.hs**
 
 https://tidalcycles.org/docs/configuration/boot-tidal/
