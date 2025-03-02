@@ -28,7 +28,7 @@ d1
    # lpq (slow 4 $ (sine / 4 + 0.25))
 
 
-d1 
+d1
    $ off 0.01 ( 
       id . (# gain (0.9)) . (# pan (sine / 4 + 0.35)) . (|+ octave (1))
       . (|+ timbre 0.05)
@@ -43,5 +43,6 @@ d1
    # attack 0.05
    -- # attack "<0.1 0.02 0.05>"
    # release 1.2
+
 
 hush
