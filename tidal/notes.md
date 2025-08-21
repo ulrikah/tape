@@ -29,3 +29,5 @@ https://club.tidalcycles.org/t/having-issues-with-timing-of-samples-played-lots-
 https://scsynth.org/t/what-are-those-late-messages-in-the-post-window/5718
 
 https://doc.sccode.org/Guides/ServerTiming.html
+
+PS: SuperCollider har en CPU-monitor i GUI-et

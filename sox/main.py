@@ -1,5 +1,6 @@
 from datetime import datetime
 from random import random, randint, uniform
+import sys
 
 import sox
 import numpy as np
@@ -29,11 +30,12 @@ def process(input_filepath: str) -> np.ndarray:
 
     tfm = sox_transformer()
     tfm.compand()
-    if random_bool():
-        tfm.reverse()
+    # if random_bool():
+    #     tfm.reverse()
     tfm.flanger(randint(0, 30))
 
-    speed = uniform(2.0, 3.0)
+    # speed = uniform(0.5, 3.0)
+    speed = 0.5
     tfm.speed(factor=speed)
     tfm.tempo(max(0.1, 0.25 / speed), quick=True)
 
@@ -72,8 +74,10 @@ def pad_tracks(M):
     return Z
 
 def main():
-    input_filepath = "bounces/rec_1646943950.wav"
-    n_iters = 10
+    input_filepath = "/Users/ulrikah/Music/tape/tidal/samples/presloops/ULTRAFLANGE.wav"
+    # input_filepath = "/Users/ulrikah/Music/tape/tidal/samples/presperc/K LAP P 23 15 39.wav"
+    # input_filepath = sys.argv[-1]
+    n_iters = 1
     output_arrays = add_list_of_tracks([process(input_filepath) for i in range(n_iters)])
     output_filename = timestamped_filename()
     if tracks_to_file(sum_tracks(output_arrays), output_filename):

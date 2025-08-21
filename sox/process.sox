@@ -20,7 +20,7 @@ fi
 
 
 OUT_DIR="bounces"
-mkdir $OUT_DIR
+# mkdir $OUT_DIR
 TIME=$(date +%s)
 
 
@@ -29,22 +29,22 @@ for FILE in ${FILES[@]}; do
     BASENAME=$(basename "${FILE}" ."${EXT}")
     OUTPUT="$OUT_DIR/${BASENAME}_${TIME}.${EXT}"
 
-    # sox $FILE $OUTPUT \
-    #     reverse \
-    #     flanger 2 \
-    #     speed 0.5 \
-    #     reverb \
-    #     stretch 2 \
-    #     reverse \
-    #     reverb norm -0.1 \
-    #     speed 4 \
-    #     lowpass 2000
+    sox $FILE $OUTPUT \
+        reverse \
+        flanger 2 \
+        speed 0.5 \
+        reverb \
+        stretch 2 \
+        reverse \
+        reverb norm -0.1 \
+        speed 4 \
+        lowpass 2000
     
 
-    sox $FILE $OUTPUT \
-        speed 0.9 \
-        lowpass 2000 \
-        overdrive 1.2
+    # sox $FILE $OUTPUT \
+    #     speed 0.9 \
+    #     lowpass 2000 \
+    #     overdrive 1.2
 
     echo "${OUTPUT} 🌻"
     # play $OUTPUT

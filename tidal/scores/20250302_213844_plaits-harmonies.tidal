@@ -12,7 +12,7 @@ d1 $ slow 4
    $ off 0.015 ((|* freq 3) . (# gain 0.5) . (# pan 0.5))
    $ off 0.02 ((|* freq 4) . (# gain 0.5) . (# pan 0.5))
    $ s "plaits"
-   # freq (sine * 50 + 200)
+   # freq (sine * 50 + "<200 150 100 80>")
    # engine 6
 
 d1 $ slow 4
@@ -27,7 +27,7 @@ d1 $ slow 4
    # freq (sine * 50 + 100)
    # engine 6
 
-d1 $ fast 1
+d1 $ fast 8
    $ sometimes (id (|* legato 1.5))
    $ off 0.001 ((|* freq "3") . (# gain 0.8) . (# pan 0.5) . (# legato (rand / 2)))
    $ off 0.004 ((|* freq "2") . (# gain 0.8) . (# pan 0.5) . (# legato (rand / 2)))
@@ -38,12 +38,13 @@ d1 $ fast 1
    # harm "<0.27!2 0.37 0.47>" -- 0.37  0.47
    # timbre 0.3
 
-d1 $ fast 6
-   $ off (rand / 100 + 0.1) ((|+ freq (1/6)) . (# gain 0.8) . (# pan 0.5))
-   $ off (rand / 100 + 0.004) ((|+ freq (1/3)) . (# gain 0.8) . (# pan 0.5))
-   $ off (rand / 100 + 0.002) ((|+ freq (1/2)) . (# gain 0.8) . (# pan 0.5))
-   $ off (rand / 100 + 0.04) ((|+ freq (1/7)) . (# gain 0.8) . (# pan 0.5))
-   $ off (rand / 100 + 0.05) ((|+ freq (2/7)) . (# gain 0.8) . (# pan 0.5))
+d1 $ fast 4
+   $ off (slow 2 sine + 0.1) ((|+ freq (1/6)) . (# gain 0.8) . (# pan 0.5))
+   $ off (slow 4 sine + 0.004) ((|+ freq (1/3)) . (# gain 0.8) . (# pan 0.5))
+   $ off (slow 4 sine + 0.002) ((|+ freq (1/2)) . (# gain 0.8) . (# pan 0.5))
+   $ off (slow 3 sine + 0.04) ((|+ freq (1/7)) . (# gain 0.8) . (# pan 0.5))
+   $ off (slow 5 sine + 0.05) ((|+ freq (2/7)) . (# gain 0.8) . (# pan 0.5))
+   $ off (slow 5 sine + 0.05) ((|+ freq (3/7)) . (# gain 0.8) . (# pan 0.5))
    $ s "plaits"
    # freq (sine * 50 + 370)
    # engine 4

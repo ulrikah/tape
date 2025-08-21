@@ -1,0 +1,138 @@
+setcps (140/60/4)
+
+-- ideas from GEIKHA
+-- github.com/geikha
+-- https://tidalcycles.org/blog/tidal_profile_geikha
+
+do
+   resetCycles
+   let runmod r m o = ((run r) |% m |+ o)
+   d1 $ slice 16 (runmod 16 "<16 _ 8 [3 1]>" 0) $ "breaks125" # cut 1 |+ note 5
+
+
+-- 
+
+let g = gain
+
+:{
+let footworks = [g "1 ~ ~ 1 ~ ~ 1 ~ 1 ~ ~ 1 ~ ~ 1 ~ "]
+:}
+
+-- let footworks = [
+--    g "1 ~ ~ 1 ~ ~ 1 ~ 1 ~ ~ ~ 1 ~ ~ ~ ",
+--    g "1 ~ ~ 1 ~ 1 1 ~ 1 ~ ~ 1 ~ 1 1 ~ ",
+--    g "1 ~ ~ 1 ~ 1 1 ~ 1 ~ ~ 1 ~ ~ 1 ~ ",
+--    g "1 ~ 1 ~ ~ 1 ~ ~ 1 ~ 1 ~ ~ 1 ~ ~ ",
+--    g "1 ~ ~ 1 ~ 1 ~ 1 ~ ~ 1 ~ 1 ~ 1 ~ ",
+--    g "1 ~ 1 ~ ~ 1 ~ 1 ~ ~ 1 ~ 1 ~ 1 ~ ",
+--    g "1 ~ ~ 1 ~ ~ 1 ~ 1 ~ 1 ~ 1 ~ 1 ~ ",
+--    g "1 ~ ~ 1 ~ 1 ~ 1 1 ~ ~ 1 ~ ~ 1 ~ ",
+--    g "1 ~ ~ 1 ~ ~ 1 1 1 ~ ~ 1 1 ~ 1 ~ ",
+--    g "1 ~ ~ 1 1 ~ 1 ~ ~ 1 ~ ~ 1 ~ ~ ~ ",
+--    g "1 ~ 1 1 ~ ~ 1 ~ 1 1 ~ ~ 1 ~ ~ ~ ",
+--    g "1 ~ 1 1 ~ ~ ~ 1 1 ~ 1 ~ ~ ~ 1 ~ ",
+--    g "1 ~ ~ ~ 1 ~ ~ 1 1 ~ ~ 1 ~ ~ 1 ~ ",
+--    g "1 ~ ~ ~ 1 ~ ~ 1 1 ~ 1 ~ 1 1 ~ ~ ",
+--    g "1 ~ ~ 1 ~ 1 ~ ~ ~ 1 ~ 1 1 ~ 1 ~ ",
+--    g "1 ~ 1 1 ~ 1 ~ 1 ~ ~ 1 ~ 1 ~ ~ ~ ",
+--    g "1 ~ ~ 1 1 ~ 1 ~ 1 ~ ~ 1 1 1 ~ ~ ",
+--    g "1 ~ 1 1 ~ ~ 1 ~ 1 ~ 1 1 ~ ~ 1 ~ ",
+--    g "1 1 ~ 1 ~ 1 ~ ~ 1 1 ~ ~ 1 ~ ~ ~ ",
+--    g "1 1 ~ 1 ~ ~ 1 ~ 1 1 ~ 1 ~ 1 ~ ~ ",
+--    g "1 1 ~ 1 1 ~ ~ 1 1 ~ ~ 1 1 ~ 1 ~ ",
+--    g "1 ~ 1 ~ 1 1 ~ 1 1 ~ ~ 1 1 ~ ~ 1 ",
+--    g "1 1 1 1 ~ ~ 1 ~ 1 1 1 1 ~ ~ 1 ~ "
+--    ] --24
+-- }:
+
+
+foot p = mono $ select (p|/24) footworks
+
+str = struct
+sup = superimpose
+supcut fs f = sup (fs . (|+ cut 1)) f
+
+let striateAt  str at f = slow   at $ striate (fast at $ str) f
+    chopAt     str at f = slow   at $ chop    (fast at $ str) f
+    sloopAt    str at f = loopAt at $ striate (fast at $ str) f
+    striateAt' str at f = striateAt (str |* at) (fmap toRational at) f
+    chopAt'    str at f = chopAt    (str |* at) (fmap toRational at) f
+    sloopAt'   str at f = sloopAt   (str |* at) (fmap toRational at) f
+    strat  = striateAt
+    chat   = chopAt
+    slat   = sloopAt
+    strat' = striateAt'
+    chat'  = chopAt'
+    slat'  = sloopAt'
+
+do
+   let trans = note 1
+   d1 $ supcut (# hpf 10000) $ chat' 18 1 $ s "stab:1" # n "3" # room 0.4 # hpf 300 # shape 0.1 # foot 0
+
+
+-- https://github.com/tado/TidalProjects/blob/master/HyperGeek05/HyperGeek3.tidal
+
+do
+   let chord = "e5'sus4 b4'min7"
+   let base = -4
+   d4
+      $ stack
+      [
+      s "supersaw(9, 16,10)" # note chord |+| note "12",
+      s "supersaw(9, 16, 5)" # note chord |+| note "7",
+      s "supersaw(9, 16, 0)" # note chord |+| note "0"
+      ]
+      |+| note base
+      # sustain "0.1"
+      # gain "1.0"
+      # room "0.2" # size "0.9"
+      # lpf (range 400 8000 $ slow 14 $ sine)  # resonance "0.3"    
+
+
+-- https://tidalcycles.org/blog/tidal_profile_ndr_brt
+
+let sh t f p = superimpose ((hurry t).f) p
+
+d1
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "sine"
+
+d1
+   $ chunk 7 (|* speed 0.9)
+   $ sh 5 id
+   $ sh "e" id
+   $ sh 3 id
+   $ rarely (sh 2 id)
+   $ rarely (sh 6 rev)
+   $ s "meg:-1"
+
+
+d1
+  $ chew 4 (iter 3 "3 1 0")
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "sine"
+
+-- or
+
+d1
+  $ bite 4 (iter 5 "3 0 1")
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "bd"
+
+d1
+  $ bite 4 (iter 5 "3 0 1")
+  $ chunk 7 (|* speed 1.5)
+  $ sh 5 id
+  $ sh "e" id
+  $ sh 3 id
+  $ s "bd"
+
+hush

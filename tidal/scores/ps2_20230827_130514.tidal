@@ -1,4 +1,4 @@
-setcps (100/60/4)
+setcps (200/60/4)
 
 
 d1 $ stack [

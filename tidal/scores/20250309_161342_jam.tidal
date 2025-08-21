@@ -1,0 +1,47 @@
+setcps (120/60/4)
+
+
+d1 $ every 6 (
+      superimpose (rev . (# speed 2.1))
+   )
+   $ every 4 (
+      superimpose (id . (# speed 2))
+   )
+   $ every 3 (
+      superimpose (id . (# speed "<0.9 0.8>") . (# djf (fast 3 sine)))
+   )
+   $ n "<0 1 2 4>!16"
+   # s "bass1"
+   # cut "-1"
+   # djf (fast 2 $ sine)
+   # hpf 100
+   # hresonance 0.1
+   # crush 1
+   # clouds 0.1 0.01 0.05 0.1
+   # cloudsblend 0.1 0.2 0.33 0.8
+   # gain 0.7
+   # lpf 8000
+
+
+d2 -- $ n (slow 4 $ run 16)
+   $ s "bd(4,8)"
+   # gain 1.0
+   # hpf 80
+   # hresonance 0.2
+   # clouds 0.1 0.01 0.05 0.1
+   # cloudsblend 0.1 0.2 0.33 0.8
+
+d3 
+   $ striateBy "<2000 3000 4000>" (1/100)
+   $ n "5" -- 4, 5
+   # s "presloops"
+   # pan (slow 8 $ (sine / 4 + 0.4))
+   # legato 1
+   # gain 1.0
+   # clouds 0.1 0.4 0.05 0.1
+   # cloudsblend 0.1 0.2 0.33 0.8
+   # crush "<6!3 5 4!2>"
+   
+mute 2
+
+hush
